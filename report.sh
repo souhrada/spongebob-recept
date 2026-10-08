@@ -31,4 +31,9 @@ OUT="report_${name}.txt"
   echo "### END"
 } > "$OUT"
 
+# Vrátí report studentovi, který spustil sudo (jinak by patřil rootovi)
+if [ -n "$SUDO_USER" ]; then
+  chown "$SUDO_USER:$(id -gn "$SUDO_USER")" "$OUT"
+fi
+
 echo "Hotovo! Odevzdej soubor: $OUT"
